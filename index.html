@@ -134,6 +134,21 @@ body.notes .note{display:block;}
 .note b{color:var(--ds-jaune);font-weight:600;}
 .note .q{display:block;margin-top:8px;color:rgba(255,255,255,.62);font-size:12px;}
 .note .q i{font-style:normal;color:rgba(255,255,255,.9);}
+/* tableau d'audit inséré dans une annotation */
+.audit{margin:14px 0 4px;background:rgba(255,255,255,.05);border-radius:4px;padding:14px 16px;}
+.audit-t{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+         color:var(--ds-jaune);margin-bottom:9px;}
+.audit table{width:100%;border-collapse:collapse;font-size:12px;}
+.audit th{text-align:left;padding:5px 9px;color:rgba(255,255,255,.5);font-weight:600;
+          border-bottom:1px solid rgba(255,255,255,.18);}
+.audit td{padding:5px 9px;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.72);
+          vertical-align:top;}
+.audit td:first-child{font-family:ui-monospace,Menlo,monospace;white-space:nowrap;color:rgba(255,255,255,.85);}
+.audit td:nth-child(2){text-align:center;width:38px;}
+.audit tr.ko td{color:#fff;}
+.audit tr.ko td:nth-child(2){background:var(--ds-jaune);color:#101010;font-weight:700;}
+.audit tr.ko td b{color:var(--ds-jaune);}
+.audit-n{margin-top:10px;font-size:12px;color:rgba(255,255,255,.6);}
 .hint{max-width:1120px;margin:0 auto;padding:0 6px 18px;font-size:12.5px;color:#666;}
 @media(max-width:900px){
   .grid3,.grid2,.timeline,.formrow{grid-template-columns:1fr;}
@@ -194,9 +209,29 @@ La police de titre du site, Persona, n'étant pas chargeable en dehors de pan.ba
     </div>
     <div class="note">
       <b>Bloc 1, titre et accroche.</b> C'est le point le plus urgent de cette page. Elle porte aujourd'hui
-      <b>deux H1</b>, et le premier est « Ils nous ont déjà fait confiance », qui ne dit rien de l'offre.
-      Un seul H1 par page, et il nomme l'occasion et la ville. La balise title et la meta description, elles,
-      sont déjà bien écrites, on les garde.
+      <b>deux H1</b>, et celui qui arrive en premier dans le code est « Ils nous ont déjà fait confiance »,
+      le bandeau au-dessus des logos clients. C'est donc lui que Google retient comme titre principal,
+      et il ne dit rien de l'offre. Un seul H1 par page, et il nomme l'occasion et la ville.
+      La balise title et la meta description, elles, sont déjà bien écrites, on les garde.
+      <div class="audit">
+        <div class="audit-t">État des H1 sur les 11 pages du site, relevé le 07/08/2026</div>
+        <table>
+          <tr><th>Page</th><th>H1</th><th>Contenu</th></tr>
+          <tr class="ko"><td>/team-building/</td><td>2</td><td>Ils nous ont déjà fait confiance <b>+</b> PAN : une activité de team building originale et ludique</td></tr>
+          <tr class="ko"><td>/soiree-pan/</td><td>2</td><td>SOIRÉES PAN <b>+</b> Découvrez les prochaines soirées PAN</td></tr>
+          <tr class="ko"><td>/faq/</td><td>0</td><td>aucun H1, alors que c'est la page qui devrait porter le balisage FAQPage</td></tr>
+          <tr class="ko"><td>/reserver/</td><td>0</td><td>aucun H1</td></tr>
+          <tr><td>/</td><td>1</td><td>PAN le premier Bar à tir à Paris</td></tr>
+          <tr><td>/anniversaire/</td><td>1</td><td>Organisez un anniversaire inoubliable chez PAN</td></tr>
+          <tr><td>/evg-evjf/</td><td>1</td><td>Organisez votre EVG ou EVJF chez PAN</td></tr>
+          <tr><td>/evenements/</td><td>1</td><td>Organisez votre événement chez PAN</td></tr>
+          <tr><td>/concept/</td><td>1</td><td>Installez-vous dans nos espaces semi-privés et jouez à nos jeux de tir</td></tr>
+          <tr><td>/lieu/</td><td>1</td><td>Venez vous divertir dans un lieu élégant et raffiné en plein coeur de Paris</td></tr>
+          <tr><td>/menu/</td><td>1</td><td>Une carte de qualité tout au long de l'année</td></tr>
+        </table>
+        <div class="audit-n">Quatre pages sur onze sont concernées. Les pages Anniversaire, EVG-EVJF et Événements
+        ont déjà un H1 propre et unique, le gabarit s'y déclinera plus facilement.</div>
+      </div>
       <span class="q">Questions visées : <i>Quelles sont les meilleures activités de team building à Paris ?</i> (2 900 rech./mois) &nbsp;·&nbsp; <i>Où organiser un team building à Paris ?</i></span>
     </div>
   </section>
