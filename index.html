@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gabarit de page, PAN Bar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Public+Sans:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ DA PAN BAR (relevée sur le site, styles calculés) ============
+   Titres  : Persona 400, letter-spacing 5px, capitales. Police propriétaire du client,
+             non chargeable ici (pan.bar ne renvoie pas d'en-tête CORS sur les polices).
+             Substituée par Marcellus, la plus proche en capitales à empattements fins.
+   Corps   : Public Sans 400/600, la vraie police du site, disponible sur Google Fonts.
+   ========================================================================== */
+:root{
+  --pan-vert:#204622;
+  --pan-vert-fonce:#1D3F1F;
+  --pan-vert-nuit:#112712;
+  --pan-rose:#ECBFC3;
+  --pan-gris:#F1F1F1;
+  --pan-texte:#333333;
+  /* couleurs d'annotation datashake, volontairement distinctes du design client */
+  --ds-jaune:#FFFF7D;
+  --ds-bleu:#77B0ED;
+  --ds-kaki:#ADAC2F;
+  --ds-gris:#E8E8E8;
+  --ds-noir:#101010;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#F7F7F7;font-family:'Inter',-apple-system,sans-serif;color:var(--ds-noir);}
+
+/* ============ BARRE D'OUTIL datashake ============ */
+.bar{position:sticky;top:0;z-index:500;background:#101010;color:#fff;padding:14px 24px;
+     display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;}
+.bar h1{font-family:'Inter';font-size:15px;font-weight:600;letter-spacing:-.01em;}
+.bar h1 span{opacity:.55;font-weight:400;}
+.legend{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+.pill{font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:3px 7px;border-radius:2px;
+      color:#101010;white-space:nowrap;}
+.p-ex{background:var(--ds-gris);} .p-re{background:var(--ds-kaki);}
+.p-no{background:var(--ds-jaune);} .p-va{background:var(--ds-bleu);}
+.p-co{background:#3A3A3A;color:#fff;}
+.toggle button{font-family:'Inter';font-size:11.5px;font-weight:600;cursor:pointer;
+  background:#fff;color:#101010;border:0;border-radius:4px;padding:7px 13px;}
+.toggle button.off{background:#3A3A3A;color:#fff;}
+
+/* ============ CADRE DE LA MAQUETTE ============ */
+.frame{max-width:1120px;margin:26px auto 60px;background:#fff;
+       border-radius:8px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.10);}
+.urlbar{background:#DEDEDE;padding:9px 14px;font-family:ui-monospace,Menlo,monospace;
+        font-size:11.5px;color:#555;border-bottom:1px solid #CCC;}
+
+/* ============ RENDU FIDÈLE AU SITE ============ */
+.site{font-family:'Public Sans',sans-serif;color:var(--pan-texte);font-size:16px;line-height:1.6;}
+.promo{background:var(--pan-rose);color:var(--pan-vert);text-align:center;padding:11px 20px;
+       font-size:14px;font-weight:600;}
+.topbar{background:var(--pan-vert);padding:18px 34px;display:flex;align-items:center;
+        justify-content:space-between;}
+.burger{width:42px;height:42px;border:1px solid rgba(255,255,255,.55);border-radius:50%;
+        display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;}
+.burger i{display:block;width:16px;height:1px;background:#fff;}
+.logo{display:flex;align-items:center;}
+.btn{display:inline-block;font-family:'Marcellus',serif;font-size:13px;letter-spacing:.28em;
+     text-transform:uppercase;border:1px solid #fff;color:#fff;background:transparent;
+     padding:13px 30px;border-radius:40px;text-decoration:none;cursor:pointer;}
+.btn.solid{background:var(--pan-vert);border-color:var(--pan-vert);color:#fff;}
+.btn.dark{border-color:var(--pan-vert);color:var(--pan-vert);}
+.btn.rose{background:var(--pan-rose);border-color:var(--pan-rose);color:var(--pan-vert);}
+
+.sec{padding:58px 46px;}
+.sec.vert{background:var(--pan-vert);color:#fff;}
+.sec.nuit{background:var(--pan-vert-nuit);color:#fff;}
+.sec.rose{background:var(--pan-rose);color:var(--pan-vert);}
+.sec.gris{background:var(--pan-gris);}
+h2.t{font-family:'Marcellus',serif;font-weight:400;text-transform:uppercase;font-size:29px;
+     letter-spacing:.14em;line-height:1.25;margin-bottom:22px;}
+h3.st{font-family:'Marcellus',serif;font-weight:400;font-size:16px;text-transform:uppercase;
+      letter-spacing:.14em;margin-bottom:9px;}
+.sec p{margin-bottom:13px;max-width:80ch;}
+.hero{position:relative;background:linear-gradient(rgba(17,39,18,.45),rgba(17,39,18,.72)),
+      url('https://pan.bar/wp-content/uploads/2025/03/PAN-87.webp');
+      background-size:cover;background-position:center;color:#fff;
+      padding:96px 46px 84px;text-align:center;}
+.hero h1{font-family:'Marcellus',serif;font-weight:400;text-transform:uppercase;
+         font-size:44px;letter-spacing:.16em;line-height:1.22;}
+.hero .sub{font-size:18px;margin:22px auto 30px;max-width:62ch;}
+.answer{background:#fff;border-left:4px solid var(--pan-rose);padding:26px 30px;}
+.answer p{font-size:17.5px;line-height:1.6;margin:0;max-width:90ch;color:var(--pan-texte);}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:center;}
+.card{background:#fff;border:1px solid #E3E3E3;border-radius:4px;padding:24px 26px;color:var(--pan-texte);}
+.sec.vert .card,.sec.nuit .card{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16);color:#fff;}
+.pricecard{background:#fff;border:1px solid #E3E3E3;border-radius:4px;padding:26px;text-align:center;color:var(--pan-texte);}
+.pricecard .amount{font-family:'Marcellus',serif;font-size:32px;color:var(--pan-vert);margin:10px 0 4px;}
+.pricecard .per{font-size:13px;color:#777;}
+.pricecard ul{list-style:none;text-align:left;margin:16px 0 0;font-size:15px;}
+.pricecard li{padding:6px 0;border-top:1px solid #EEE;}
+table.spec{width:100%;border-collapse:collapse;background:#fff;font-size:15.5px;color:var(--pan-texte);}
+table.spec th{background:var(--pan-vert);color:#fff;font-family:'Marcellus',serif;font-weight:400;
+   font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:13px 15px;text-align:left;}
+table.spec td{padding:12px 15px;border-bottom:1px solid #EAEAEA;}
+table.spec td:first-child{font-weight:600;}
+.faq details{background:#fff;border:1px solid #E3E3E3;border-radius:4px;margin-bottom:10px;padding:16px 22px;}
+.faq summary{font-family:'Public Sans';font-weight:600;font-size:16px;cursor:pointer;color:var(--pan-vert);}
+.faq p{margin:12px 0 0;font-size:15.5px;}
+.awards{display:flex;gap:44px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.awards img{height:auto;width:100%;max-width:270px;}
+.links a{display:inline-block;border:1px solid var(--pan-vert);border-radius:40px;
+   padding:11px 22px;margin:0 9px 10px 0;text-decoration:none;color:var(--pan-vert);
+   font-family:'Marcellus',serif;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.timeline .step{background:rgba(255,255,255,.06);border-top:1px solid var(--pan-rose);padding:18px;color:#fff;}
+.timeline .h{font-family:'Marcellus',serif;font-size:21px;color:var(--pan-rose);letter-spacing:.06em;}
+.formrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.formrow input{width:100%;padding:13px;border:1px solid #D6D6D6;border-radius:3px;
+   font-family:'Public Sans';font-size:14.5px;}
+.codeblk{background:#0E1C0F;border-radius:4px;padding:22px;overflow-x:auto;}
+.codeblk pre{font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.65;color:#DDE6DD;}
+.codeblk .k{color:#9EC6A0;} .codeblk .s{color:var(--pan-rose);}
+.codeblk .p{color:rgba(221,230,221,.45);}
+.foot{background:var(--pan-vert-nuit);color:#fff;padding:36px 46px;font-size:15px;text-align:center;}
+
+/* ============ COUCHE D'ANNOTATION ============ */
+.blk{position:relative;}
+body.notes .blk{outline:2px dashed rgba(16,16,16,.22);outline-offset:-2px;}
+.tags{display:none;position:absolute;top:8px;right:8px;z-index:40;gap:5px;}
+body.notes .tags{display:flex;}
+.note{display:none;background:#101010;color:#fff;padding:16px 22px;
+      font-family:'Inter';font-size:13px;line-height:1.55;}
+body.notes .note{display:block;}
+.note b{color:var(--ds-jaune);font-weight:600;}
+.note .q{display:block;margin-top:8px;color:rgba(255,255,255,.62);font-size:12px;}
+.note .q i{font-style:normal;color:rgba(255,255,255,.9);}
+.hint{max-width:1120px;margin:0 auto;padding:0 6px 18px;font-size:12.5px;color:#666;}
+@media(max-width:900px){
+  .grid3,.grid2,.timeline,.formrow{grid-template-columns:1fr;}
+  .hero h1{font-size:29px;} h2.t{font-size:22px;} .sec{padding:36px 22px;}
+}
+</style>
+</head>
+<body class="notes">
+
+<div class="bar">
+  <h1>Gabarit de page, PAN Bar <span>&nbsp;/&nbsp; datashake, août 2026</span></h1>
+  <div class="legend">
+    <span class="pill p-ex">EXISTANT</span>
+    <span class="pill p-re">À RENFORCER</span>
+    <span class="pill p-no">NOUVEAU</span>
+    <span class="pill p-va">VARIABLE</span>
+    <span class="pill p-co">CONDITIONNEL</span>
+  </div>
+  <div class="toggle">
+    <button id="tg" onclick="document.body.classList.toggle('notes');
+      this.textContent=document.body.classList.contains('notes')?'Masquer les annotations':'Afficher les annotations';
+      this.className=document.body.classList.contains('notes')?'':'off';">Masquer les annotations</button>
+  </div>
+</div>
+
+<p class="hint">Maquette de travail. Le rendu reprend la charte du site, couleurs, mise en page et images réelles.
+Les textes sont des exemples destinés à montrer le niveau de précision attendu, pas une version validée.
+La police de titre du site, Persona, n'étant pas chargeable en dehors de pan.bar, elle est remplacée ici par sa plus proche équivalente.</p>
+
+<div class="frame">
+<div class="urlbar">https://pan.bar/team-building/</div>
+<div class="site">
+
+  <div class="promo">Cet été, on vous offre la tournée ! Avec le code SUMMER, valable jusqu'au 31/08</div>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="burger"><i></i><i></i><i></i></div>
+    <div class="logo">
+      <svg width="104" height="46" viewBox="0 0 208 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PAN">
+        <ellipse cx="74" cy="46" rx="55" ry="43" stroke="#fff" stroke-width="1.6"/>
+        <ellipse cx="134" cy="46" rx="55" ry="43" stroke="#fff" stroke-width="1.6"/>
+        <text x="42" y="60" fill="#fff" font-family="Marcellus, serif" font-size="40">P</text>
+        <text x="90" y="60" fill="#fff" font-family="Marcellus, serif" font-size="40">A</text>
+        <text x="142" y="60" fill="#fff" font-family="Marcellus, serif" font-size="40">N</text>
+      </svg>
+    </div>
+    <a href="#devis" class="btn">Réserver</a>
+  </div>
+
+  <!-- 1. HERO -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-re">À RENFORCER</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="hero">
+      <h1>Team building à Paris<br>au bar à tir</h1>
+      <p class="sub">Tir sur cible, cuisine maison et cocktails dans un lieu de 500 m2 à Paris 10e. De 10 à 150 personnes.</p>
+      <a href="#devis" class="btn">Demander un devis</a>
+    </div>
+    <div class="note">
+      <b>Bloc 1, titre et accroche.</b> C'est le point le plus urgent de cette page. Elle porte aujourd'hui
+      <b>deux H1</b>, et le premier est « Ils nous ont déjà fait confiance », qui ne dit rien de l'offre.
+      Un seul H1 par page, et il nomme l'occasion et la ville. La balise title et la meta description, elles,
+      sont déjà bien écrites, on les garde.
+      <span class="q">Questions visées : <i>Quelles sont les meilleures activités de team building à Paris ?</i> (2 900 rech./mois) &nbsp;·&nbsp; <i>Où organiser un team building à Paris ?</i></span>
+    </div>
+  </section>
+
+  <!-- 2. RÉPONSE DIRECTE -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="sec" style="padding-bottom:0;">
+      <div class="answer">
+        <p>PAN est un bar à tir situé au 6 rue de Paradis, Paris 10e. Sur 500 m2, il réunit une activité de tir
+        sur cible inspirée du ball-trap, une cuisine faite maison et un bar à cocktails. Pour un team building,
+        les formules vont de 16 à 36 euros par personne, jusqu'à 150 personnes, avec privatisation possible du lieu.</p>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 2, réponse directe. C'est le bloc qui n'existe pas aujourd'hui et celui qui change le plus la donne.</b>
+      Quarante à soixante mots, placés avant tout visuel, avec les chiffres, adresse, surface, effectif, prix.
+      Aucun superlatif, aucune accroche. Ce bloc n'est pas écrit pour séduire, il est écrit pour être recopié tel quel par un moteur IA.
+      <span class="q">Sert tous les prompts de la page. C'est le bloc GEO central.</span>
+    </div>
+  </section>
+
+  <!-- 3. LE CONCEPT -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-re">À RENFORCER</span></div>
+    <div class="sec vert">
+      <h2 class="t">Tirer, manger, boire un verre</h2>
+      <div class="grid3">
+        <div class="card"><h3 class="st">Le tir</h3>
+          <p style="font-size:15px;">Des cibles en mouvement, dans l'esprit du ball-trap, sans arme réelle et sans licence. Accessible dès la première partie.</p></div>
+        <div class="card"><h3 class="st">La table</h3>
+          <p style="font-size:15px;">Une cuisine faite maison par notre chef, servie sur place, à table ou en format partagé.</p></div>
+        <div class="card"><h3 class="st">Le bar</h3>
+          <p style="font-size:15px;">Une carte de cocktails signature, pour prolonger la soirée après la partie.</p></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 3, le concept.</b> Les trois briques existent sur le site, mais elles sont éclatées entre les pages Concept, Lieu et Menu,
+      et absentes de la page team building. Il faut les réunir ici, en trois blocs courts. C'est ce qui différencie PAN d'une simple
+      activité, on peut y passer la soirée entière au même endroit.
+      <span class="q">Questions visées : <i>Le PAN Bar, c'est quoi exactement ?</i> &nbsp;·&nbsp; <i>Peut-on manger au PAN Bar ?</i> &nbsp;·&nbsp; <i>Quel lieu pour une soirée d'entreprise avec activité, dîner et open bar ?</i></span>
+    </div>
+  </section>
+
+  <!-- 4. QU'EST-CE QU'UN BAR À TIR -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span><span class="pill p-co">CONDITIONNEL</span></div>
+    <div class="sec">
+      <h2 class="t">Qu'est-ce qu'un bar à tir ?</h2>
+      <p>Un bar à tir est un lieu qui associe une activité de tir de loisir et un bar. Chez PAN, on tire sur des cibles
+      en mouvement projetées sur écran, avec des répliques qui ne tirent aucun projectile. Il n'y a donc ni licence,
+      ni permis de chasse, ni club à rejoindre, contrairement à un stand de tir classique.</p>
+      <table class="spec" style="margin-top:16px;">
+        <tr><th></th><th>Stand de tir</th><th>PAN</th></tr>
+        <tr><td>Licence ou permis</td><td>Obligatoire</td><td>Aucun</td></tr>
+        <tr><td>Sur place</td><td>L'activité seule</td><td>Tir, restaurant et bar</td></tr>
+        <tr><td>Format</td><td>Individuel</td><td>De 2 à 150 personnes</td></tr>
+      </table>
+    </div>
+    <div class="note">
+      <b>Bloc 4, la définition.</b> « Bar à tir » est une catégorie que presque personne ne connaît, et que personne ne cherche
+      spontanément. La page doit donc définir le concept et se raccrocher aux mots que les gens emploient vraiment,
+      tir, ball-trap, stand de tir. C'est le pendant du bloc « ce n'est pas un escape game » côté Bomb Squad.
+      À n'activer que sur les pages où la question se pose.
+      <span class="q">Questions visées : <i>Qu'est-ce qu'un bar à tir ?</i> &nbsp;·&nbsp; <i>Où faire du tir à Paris ?</i> (4 400) &nbsp;·&nbsp; <i>Où tirer à Paris sans licence ?</i> &nbsp;·&nbsp; <i>Où faire du ball-trap à Paris ?</i> (390) &nbsp;·&nbsp; <i>Où faire du tir virtuel à Paris ?</i></span>
+    </div>
+  </section>
+
+  <!-- 5. POURQUOI NOUS -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="sec gris">
+      <h2 class="t">Pourquoi PAN pour votre team building</h2>
+      <div class="grid3">
+        <div class="card"><h3 class="st">Tout au même endroit</h3><p style="font-size:15px;">Activité, dîner et cocktails sans changer de lieu ni réserver ailleurs.</p></div>
+        <div class="card"><h3 class="st">Accessible à tous</h3><p style="font-size:15px;">Aucune condition physique, aucune expérience du tir. On peut jouer assis.</p></div>
+        <div class="card"><h3 class="st">On peut se parler</h3><p style="font-size:15px;">Contrairement à une activité sportive, le format laisse le temps d'échanger.</p></div>
+        <div class="card"><h3 class="st">Jusqu'à 150 personnes</h3><p style="font-size:15px;">Le lieu se privatise entièrement, box par box ou en totalité.</p></div>
+        <div class="card"><h3 class="st">Paris 10e</h3><p style="font-size:15px;">À quelques minutes à pied de la gare de l'Est et de la gare du Nord.</p></div>
+        <div class="card"><h3 class="st">Un lieu primé</h3><p style="font-size:15px;">Lauréat Paris Shop &amp; Design et de la Nuit de l'Événementiel.</p></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 5, la différenciation.</b> Ce bloc n'existe pas sur la page. C'est pourtant celui qui répond à la vraie question
+      de l'organisateur, pourquoi vous plutôt qu'un autre lieu. Les six raisons changent d'une occasion à l'autre,
+      la structure en six cartes ne change pas.
+      <span class="q">Questions visées : <i>Quel team building original pour marquer les esprits ?</i> (390) &nbsp;·&nbsp; <i>Quelle soirée d'entreprise qui change du restaurant classique ?</i> (1 000)</span>
+    </div>
+  </section>
+
+  <!-- 6. FORMULES -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-ex">EXISTANT</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="sec">
+      <h2 class="t">Nos formules team building</h2>
+      <div class="grid3">
+        <div class="pricecard"><h3 class="st">Formule simple</h3>
+          <div class="amount">16 &euro;</div><div class="per">par personne</div>
+          <ul><li>Une partie de tir</li><li>Format court</li><li>Bar accessible</li></ul></div>
+        <div class="pricecard"><h3 class="st">Formule team building</h3>
+          <div class="amount">36 &euro;</div><div class="per">par personne</div>
+          <ul><li>Tir en équipes avec classement</li><li>Planche ou repas</li><li>Une boisson incluse</li></ul></div>
+        <div class="pricecard"><h3 class="st">Formule privative</h3>
+          <div class="amount">Sur devis</div><div class="per">jusqu'à 150 personnes</div>
+          <ul><li>Lieu privatisé</li><li>Menu sur mesure</li><li>Open bar possible</li></ul></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 6, les formules.</b> Elles sont déjà en ligne et c'est un vrai point fort, peu de concurrents affichent leurs prix.
+      Deux corrections. D'abord les intitulés sont aujourd'hui balisés en H2, ce qui casse la structure de la page,
+      ils doivent passer en H3. Ensuite le prix d'entrée diffère selon les pages, 16 euros ici et 20 euros sur l'accueil,
+      il faut trancher avant de le baliser.
+      <span class="q">Questions visées : <i>Combien ça coûte au PAN Bar ?</i> &nbsp;·&nbsp; <i>Combien coûte un team building à Paris par personne ?</i> (590) &nbsp;·&nbsp; <i>Combien coûte une privatisation du PAN Bar ?</i></span>
+    </div>
+  </section>
+
+  <!-- 7. DÉROULÉ -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span><span class="pill p-co">CONDITIONNEL</span></div>
+    <div class="sec nuit">
+      <h2 class="t">Une soirée type pour 40 personnes</h2>
+      <div class="timeline">
+        <div class="step"><div class="h">18h30</div><p style="font-size:14.5px;">Accueil au bar, cocktail de bienvenue.</p></div>
+        <div class="step"><div class="h">19h00</div><p style="font-size:14.5px;">Tournoi de tir par équipes, en rotation sur les box.</p></div>
+        <div class="step"><div class="h">20h30</div><p style="font-size:14.5px;">Dîner servi sur place, annonce du classement.</p></div>
+        <div class="step"><div class="h">22h00</div><p style="font-size:14.5px;">Soirée libre au bar, jusqu'à 1h le vendredi et le samedi.</p></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 7, le déroulé.</b> C'est l'argument le plus fort de PAN face à une activité seule, la soirée tient sur plusieurs heures
+      au même endroit. Ce bloc le rend concret. Il rassure aussi celui qui organise et qui doit vendre le projet en interne.
+      À désactiver sur les pages courtes.
+      <span class="q">Questions visées : <i>Je dois organiser un team building pour 30 personnes à Paris, des idées ?</i> &nbsp;·&nbsp; <i>Quelle activité pour un afterwork le soir ?</i> (1 000)</span>
+    </div>
+  </section>
+
+  <!-- 8. LE LIEU -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="sec">
+      <h2 class="t">Le lieu</h2>
+      <div class="grid2">
+        <div>
+          <p><b>6 rue de Paradis, 75010 Paris.</b></p>
+          <p>Métro Poissonnière (ligne 7) et Château d'Eau (ligne 4) à quelques minutes à pied,
+          gare de l'Est et gare du Nord accessibles à pied également.</p>
+          <p>500 m2 sur deux niveaux, des box de tir privatisables, une salle de restaurant et un bar.
+          Le lieu est lauréat du Paris Shop &amp; Design et de la Nuit de l'Événementiel.</p>
+          <p style="font-weight:600;color:var(--pan-vert);">Ouvert du mardi au jeudi de 15h à minuit, le vendredi de 15h à 1h,
+          le samedi de 14h à 1h, le dimanche de 14h à minuit. Fermé le lundi.</p>
+        </div>
+        <div><img src="https://pan.bar/wp-content/uploads/2025/03/PAN-23-1024x683.webp"
+             alt="La salle du PAN Bar à Paris 10e" style="width:100%;border-radius:4px;"></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 8, l'ancrage local.</b> Il existe une page Lieu sur le site, mais aucune page d'occasion ne porte l'adresse,
+      les stations de métro ni les horaires. Or ce sont les questions de proximité qui sont les plus faciles à gagner
+      pour une marque encore peu connue, parce que la concurrence y est locale. Les horaires sont publiés en texte
+      sur le site, il reste à les baliser.
+      <span class="q">Questions visées : <i>Où se trouve le PAN Bar à Paris et quel métro ?</i> &nbsp;·&nbsp; <i>Quel bar sympa près de gare du Nord ?</i> (1 000) &nbsp;·&nbsp; <i>Quel bar insolite à Paris ?</i> (1 300)</span>
+    </div>
+  </section>
+
+  <!-- 9. PREUVES -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-ex">EXISTANT</span></div>
+    <div class="sec gris">
+      <h2 class="t">Ils nous ont fait confiance</h2>
+      <div class="awards">
+        <img src="https://pan.bar/wp-content/uploads/2026/05/pan-laureat-shop-design-750x256.png" alt="Lauréat Paris Shop and Design">
+        <img src="https://pan.bar/wp-content/uploads/2026/05/pan-laureat-evenementiel-750x241.png" alt="Lauréat Nuit de l'Événementiel">
+      </div>
+      <div class="grid2" style="margin-top:26px;">
+        <div class="card"><p style="font-size:15.5px;">« On cherchait un lieu où l'équipe puisse jouer puis dîner sans bouger.
+          C'est exactement ce qu'on a eu, et personne n'était sur la touche. »</p>
+          <p style="font-size:13.5px;color:#777;margin:0;">Office manager, soirée de 45 personnes</p></div>
+        <div class="card"><h3 class="st">Deux fois lauréat</h3>
+          <p style="font-size:15.5px;">Paris Shop &amp; Design pour l'architecture du lieu, Nuit de l'Événementiel pour le concept.</p></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 9, les preuves.</b> Le bloc existe et les deux prix sont un atout réel, peu de lieux peuvent en dire autant.
+      Attention en revanche à la note de 5 sur 5 sur 36 avis présente dans le code du site, elle est rattachée à un type de balisage
+      qui ne correspond à rien et aucun avis n'est affiché en face. Elle est à retirer du code, pas de la page.
+      <span class="q">Questions visées : <i>Avis PAN Bar Paris</i> &nbsp;·&nbsp; <i>Quelles sont les activités de groupe les mieux notées à Paris ?</i></span>
+    </div>
+  </section>
+
+  <!-- 10. FAQ -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="sec faq">
+      <h2 class="t">Questions fréquentes</h2>
+      <details open><summary>Qu'est-ce qu'un bar à tir ?</summary>
+        <p>Un lieu qui associe une activité de tir de loisir et un bar. Chez PAN, on tire sur des cibles en mouvement
+        projetées sur écran, sans arme réelle, sans licence ni permis.</p></details>
+      <details><summary>Faut-il une licence ou un permis pour tirer au PAN ?</summary>
+        <p>Non. Les répliques utilisées ne tirent aucun projectile, aucune licence de tir ni permis de chasse n'est nécessaire.</p></details>
+      <details><summary>Combien ça coûte au PAN Bar ?</summary>
+        <p>Les formules team building vont de 16 à 36 euros par personne. La privatisation complète est sur devis.
+        Prix d'entrée à confirmer, le site indique aujourd'hui 16 euros sur cette page et 20 euros sur l'accueil.</p></details>
+      <details><summary>Peut-on manger au PAN Bar ?</summary>
+        <p>Oui. Une cuisine faite maison est servie sur place, en formule partagée ou à table, et peut être intégrée
+        à toutes les formules de groupe.</p></details>
+      <details><summary>Le PAN Bar convient-il pour un team building ?</summary>
+        <p>Oui, de 10 à 150 personnes, avec un tournoi par équipes, un dîner et le bar au même endroit.
+        Le lieu se privatise en totalité ou par box.</p></details>
+      <details><summary>Faut-il réserver pour venir ?</summary>
+        <p>À compléter avec le client.</p></details>
+      <details><summary>À partir de quel âge peut-on venir ?</summary>
+        <p>À compléter avec le client.</p></details>
+      <details><summary>Où se trouve le PAN Bar et quel métro ?</summary>
+        <p>Au 6 rue de Paradis, Paris 10e. Métro Poissonnière ligne 7 et Château d'Eau ligne 4,
+        gare de l'Est et gare du Nord à quelques minutes à pied.</p></details>
+    </div>
+    <div class="note">
+      <b>Bloc 10, la FAQ.</b> Il existe une page FAQ sur le site, mais aucune page d'occasion n'en porte.
+      Deux règles, l'intitulé reprend le prompt tel qu'un utilisateur le pose, et la réponse se comprend seule,
+      sans avoir lu le reste de la page, parce qu'un moteur peut l'extraire isolément. Attention au passage,
+      les questions de la FAQ actuelle contiennent des caractères mal encodés dans le code, du type C&amp;rsquo;est
+      au lieu de C'est. Un moteur qui cite la réponse cite le texte abîmé.
+      <span class="q">Sert les dix prompts de marque de la roadmap. Balisage FAQPage obligatoire.</span>
+    </div>
+  </section>
+
+  <!-- 11. OCCASIONS VOISINES -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="sec links gris">
+      <h2 class="t">Autres occasions</h2>
+      <a href="#">Séminaire</a><a href="#">Soirée d'entreprise</a><a href="#">Afterwork</a>
+      <a href="#">Anniversaire</a><a href="#">EVG et EVJF</a><a href="#">Privatisation</a>
+    </div>
+    <div class="note">
+      <b>Bloc 11, le maillage interne.</b> Trois à quatre liens vers les autres pages du gabarit, l'ancre est le nom de l'occasion.
+      Les pages Anniversaire, EVG-EVJF et Soirée PAN existent déjà, mais elles ne se lient pas entre elles.
+      Chaque page est aujourd'hui un cul-de-sac.
+      <span class="q">Fait circuler la popularité entre les pages et aide les moteurs à comprendre l'offre complète.</span>
+    </div>
+  </section>
+
+  <!-- 12. CONVERSION -->
+  <section class="blk" id="devis">
+    <div class="tags"><span class="pill p-ex">EXISTANT</span><span class="pill p-va">VARIABLE</span></div>
+    <div class="sec rose">
+      <h2 class="t">Demander un devis</h2>
+      <p style="margin-bottom:22px;">Réponse sous 24 heures ouvrées, devis et facture au nom de votre société.</p>
+      <div style="background:#fff;padding:26px;border-radius:4px;max-width:660px;">
+        <div class="formrow"><input placeholder="Nom et prénom"><input placeholder="Société"></div>
+        <div class="formrow"><input placeholder="Email professionnel"><input placeholder="Nombre de participants"></div>
+        <div class="formrow"><input placeholder="Date souhaitée"><input placeholder="Téléphone"></div>
+        <button class="btn solid" style="width:100%;">Envoyer ma demande</button>
+      </div>
+    </div>
+    <div class="note">
+      <b>Bloc 12, la conversion.</b> Le formulaire de devis existe déjà en bas de page, on le garde.
+      Ce qui change selon la page, c'est la promesse et les champs. Devis, facture et délai de réponse côté entreprise.
+      Réservation en ligne et prix par personne côté grand public.
+      <span class="q">Questions visées : <i>Faut-il réserver pour aller au PAN Bar ?</i> &nbsp;·&nbsp; <i>Où privatiser un bar pour un événement d'entreprise à Paris ?</i> (1 600)</span>
+    </div>
+  </section>
+
+  <!-- 13. DONNÉES STRUCTURÉES -->
+  <section class="blk">
+    <div class="tags"><span class="pill p-no">NOUVEAU</span></div>
+    <div class="sec nuit">
+      <h2 class="t">Données structurées de la page</h2>
+      <p style="margin-bottom:18px;color:rgba(255,255,255,.75);">Bloc invisible pour le visiteur, placé dans le code de la page. C'est lui qui rend la page lisible par les moteurs.</p>
+      <div class="codeblk"><pre>{
+  <span class="k">"@context"</span><span class="p">:</span> <span class="s">"https://schema.org"</span><span class="p">,</span>
+  <span class="k">"@type"</span><span class="p">:</span> <span class="s">"Service"</span><span class="p">,</span>
+  <span class="k">"name"</span><span class="p">:</span> <span class="s">"Team building à Paris"</span><span class="p">,</span>
+  <span class="k">"serviceType"</span><span class="p">:</span> <span class="s">"Team building"</span><span class="p">,</span>
+  <span class="k">"provider"</span><span class="p">:</span> <span class="p">{</span> <span class="k">"@id"</span><span class="p">:</span> <span class="s">"https://pan.bar/#localbusiness"</span> <span class="p">},</span>
+  <span class="k">"areaServed"</span><span class="p">:</span> <span class="s">"Paris"</span><span class="p">,</span>
+  <span class="k">"offers"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="k">"@type"</span><span class="p">:</span> <span class="s">"AggregateOffer"</span><span class="p">,</span>
+    <span class="k">"lowPrice"</span><span class="p">:</span> <span class="s">"16"</span><span class="p">,</span> <span class="k">"highPrice"</span><span class="p">:</span> <span class="s">"36"</span><span class="p">,</span>
+    <span class="k">"priceCurrency"</span><span class="p">:</span> <span class="s">"EUR"</span>
+  <span class="p">}</span>
+}</pre></div>
+    </div>
+    <div class="note">
+      <b>Bloc 13, le balisage.</b> Trois blocs à poser sur chaque page du gabarit, FAQPage, Service et Offer.
+      Le LocalBusiness, ou plus précisément BarOrClub, se pose une seule fois sur la page d'accueil et toutes les pages
+      y renvoient par leur identifiant. Aujourd'hui pan.bar n'a aucun lieu physique déclaré, alors que c'est un lieu de 500 m2,
+      et son bloc Organization se limite au nom, à l'URL et au logo.
+      <span class="q">Détail complet dans l'onglet « données structurées, actions » de l'audit technique.</span>
+    </div>
+  </section>
+
+  <div class="foot">
+    <svg width="90" height="40" viewBox="0 0 208 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PAN" style="margin-bottom:10px;">
+      <ellipse cx="74" cy="46" rx="55" ry="43" stroke="#fff" stroke-width="1.6"/>
+      <ellipse cx="134" cy="46" rx="55" ry="43" stroke="#fff" stroke-width="1.6"/>
+      <text x="42" y="60" fill="#fff" font-family="Marcellus, serif" font-size="40">P</text>
+      <text x="90" y="60" fill="#fff" font-family="Marcellus, serif" font-size="40">A</text>
+      <text x="142" y="60" fill="#fff" font-family="Marcellus, serif" font-size="40">N</text>
+    </svg>
+    <p>6 rue de Paradis, 75010 Paris &nbsp;·&nbsp; +33 1 40 22 00 55</p>
+  </div>
+
+</div>
+</div>
+
+<p class="hint" style="padding-bottom:50px;">
+Trois blocs existants gardés tels quels, trois blocs à renforcer, sept blocs nouveaux.
+Le chantier est plus lourd que sur Bomb Squad, dont la page team building était déjà bien construite.
+La page est sous Elementor, donc une fois le gabarit posé, chaque nouvelle occasion est une duplication
+suivie d'un remplissage de textes, sans développement.
+Pages à décliner sur ce gabarit : séminaire (1 900 rech./mois), soirée d'entreprise (1 000), afterwork (1 000),
+privatisation de bar (1 600), bar à tir, anniversaire adulte (1 300), EVG et EVJF (880 et 320).
+</p>
+
+</body>
+</html>
